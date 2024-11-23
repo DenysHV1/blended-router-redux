@@ -1,11 +1,18 @@
-import { Container, Heading, Section } from 'components';
+import { Container, CountryList, Heading, Loader, Section } from 'components';
+import { useFetchCountries } from 'hoocks';
+const Home = () => {
+  const { countries, isLoading, error } = useFetchCountries();
+  console.log(countries);
 
-export const Home = () => {
   return (
     <Section>
       <Container>
-        <Heading title="Home" bottom />
+        {error && <Heading title="Something went wrong!" bottom />}
+        {isLoading && <Loader />}
+        {countries.length > 0 && <CountryList countries={countries}/>}
       </Container>
     </Section>
   );
 };
+
+export default Home;
